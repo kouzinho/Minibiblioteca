@@ -6,7 +6,18 @@
 </head>
 <body>
     <h1>Libros</h1>
+
+    <!-- Enlaces que agregan libros usando parámetros GET -->
+    <!-- Cada enlace llama a /add y envía los parámetros 'titulo' y 'autor' -->
+    <a th:href="@{/add(titulo = 'El nombre del viento', autor = 'Patrick Rothfuss')}"> Añadir "El nombre del viento"</a><br/>
+    <a th:href="@{/add(titulo = 'El capitán Alatriste', autor = 'Pérez Reverte')}"> Añadir "El capitán Alatriste"</a><br/>
+    <a th:href="@{/add(titulo = 'Berserk', autor = 'Kentaro Miura')}"> Añadir "Berserk"</a><br/>
+
+
+
+
     <ul>
+         <!-- Recorre la lista 'libros' enviada desde el controlador -->
         <li th:each = "libro : ${libros}" th:text = "${libro}"></li>
     </ul>
     
