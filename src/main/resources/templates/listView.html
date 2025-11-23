@@ -17,8 +17,16 @@
 
 
     <ul>
-         <!-- Recorre la lista 'libros' enviada desde el controlador -->
-        <li th:each = "libro : ${libros}" th:text = "${libro}"></li>
+        <!-- Recorre la lista 'libros' enviada desde el controlador -->
+        <!-- Ahora cada 'libro' es un objeto con propiedades: titulo, autor, ID -->
+        <li th:each = "libro : ${libros}">
+            <!-- Mostramos el título y autor del libro -->
+            <span th:text = "${libro.titulo}"></span>
+            <span th:text = "${libro.autor}"></span>
+
+            <!-- Enlace para eliminar el libro usando su ID -->
+            <a th:href ="@{/delete/{ID}(ID = ${libro.ID})}">Eliminar</a>
+        </li>
     </ul>
     
 </body>
