@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel = "stylesheet" th:href="@{/css/estilos.css}">
     <title>Minibiblioteca</title>
 </head>
 <body>
@@ -33,8 +34,9 @@
                 <td th:text = "${libro.ID}"></td>
                 <td th:text = "${libro.titulo}"></td>
                 <td th:text = "${libro.autor}"></td>
-                <!-- Mostrar estado del 'libro' -->
-                <td th:text = "${libro.disponible ? 'Disponible' : 'Prestado'}"></td>
+                <!-- Mostrar estado del 'libro' e introducción de th:classappend para implementar CSS -->
+                <td th:text = "${libro.disponible ? 'Disponible' : 'Prestado'}"
+                    th:classappend = "${libro.disponible} ? 'disponible' : 'prestado' "></td>
                 <td>
                     <!-- Enlaces para operar sobre el objeto -->
                     <a th:href = "@{/toggle/{ID}(ID = ${libro.ID})}">Cambiar estado</a>

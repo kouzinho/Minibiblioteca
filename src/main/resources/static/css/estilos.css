@@ -1,0 +1,50 @@
+/* Fuente básica */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: gainsboro;
+}
+
+/* Título */
+h1 {
+    text-align: center;
+}
+
+
+/* Tabla principal  */
+table {
+    border-collapse: collapse;
+    border-radius: 20px;
+    width: 70%;
+    margin: 20px auto;
+}
+
+
+/* Celdas y encabezados */
+th, td {
+    border: 2px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+
+/* Fondo blanco para las filas */
+td{
+    background-color: white;
+}
+
+/* Fondo del encabezado */
+thead {
+    background-color: #ccc8c8;
+}
+
+
+/* Clase para mostrar libros disponibles en color verde */
+.disponible{
+    color: darkgreen;
+}
+
+/* Clase para mostrar libros prestados en rojo */
+.prestado{
+    color: rgb(150, 14, 14);    
+}
