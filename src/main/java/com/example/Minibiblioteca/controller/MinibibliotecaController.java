@@ -43,6 +43,7 @@ public class MinibibliotecaController {
         return "redirect:/";
     }
 
+    //Ruta para eliminar un libro por ID
     @GetMapping("/delete/{ID}")
     public String deleteLibro(@PathVariable int ID) {
         
@@ -52,5 +53,23 @@ public class MinibibliotecaController {
         //Redireccionamos para ver la vista actualizada sin datos en el navegador
         return "redirect:/";
     }
+
+    //Ruta para cambiar el estado de un libro
+    @GetMapping("/toggle/{ID}")
+    public String toggleisponible(@PathVariable int ID) {
+        // Bucle para recorrer la lista
+        for (Libro libro : libros) {
+            // Condicional para encontrar la ID del libro deseado
+            if (libro.getID() == ID) {
+                //Cambia el valor del booleano del libro seleccionado
+                libro.setDisponible(!libro.isDisponible());
+                //Rompe el bucle
+                break;
+            }
+        }
+        //Redireccionamos para ver la vista actualizada sin datos en el navegador
+        return "redirect:/";
+    }
+    
     
 }

@@ -14,20 +14,37 @@
     <a th:href="@{/add(titulo = 'Berserk', autor = 'Kentaro Miura')}"> Añadir "Berserk"</a><br/>
 
 
+    <!-- Tabla para mostrar todos los libros -->
+    <table border="5">
+        <thead>
+            <tr><!-- Titulos de la tabla -->
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+             <!-- Recorremos la lista 'libros' enviada por el controlador con un for each -->
+            <tr th:each = "libro : ${libros}">
 
+                <!-- Mostrar el valor de los atributos del objeto libro -->
+                <td th:text = "${libro.ID}"></td>
+                <td th:text = "${libro.titulo}"></td>
+                <td th:text = "${libro.autor}"></td>
+                <!-- Mostrar estado del 'libro' -->
+                <td th:text = "${libro.disponible ? 'Disponible' : 'Prestado'}"></td>
+                <td>
+                    <!-- Enlaces para operar sobre el objeto -->
+                    <a th:href = "@{/toggle/{ID}(ID = ${libro.ID})}">Cambiar estado</a>
+                    <a th:href = "@{/delete/{ID}(ID = ${libro.ID})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-    <ul>
-        <!-- Recorre la lista 'libros' enviada desde el controlador -->
-        <!-- Ahora cada 'libro' es un objeto con propiedades: titulo, autor, ID -->
-        <li th:each = "libro : ${libros}">
-            <!-- Mostramos el título y autor del libro -->
-            <span th:text = "${libro.titulo}"></span>
-            <span th:text = "${libro.autor}"></span>
-
-            <!-- Enlace para eliminar el libro usando su ID -->
-            <a th:href ="@{/delete/{ID}(ID = ${libro.ID})}">Eliminar</a>
-        </li>
-    </ul>
+    
     
 </body>
 </html>
