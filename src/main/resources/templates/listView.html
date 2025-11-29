@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <link rel = "stylesheet" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
     <title>Minibiblioteca</title>
 </head>
+
 <body>
     <h1>Libros</h1>
 
+    <!-- Mensajes de confirmación o error -->
+    <div th:if="${txtMensaje != null}" class="alert success" th:text="${txtMensaje}"></div>
+    <div th:if="${txtError != null}" class="alert error" th:text="${txtError}"></div>
+
     <!-- Enlaces que agregan libros usando parámetros GET -->
     <!-- Cada enlace llama a /add y envía los parámetros 'titulo' y 'autor' -->
-    <a th:href="@{/add(titulo = 'El nombre del viento', autor = 'Patrick Rothfuss')}"> Añadir "El nombre del viento"</a><br/>
-    <a th:href="@{/add(titulo = 'El capitán Alatriste', autor = 'Pérez Reverte')}"> Añadir "El capitán Alatriste"</a><br/>
-    <a th:href="@{/add(titulo = 'Berserk', autor = 'Kentaro Miura')}"> Añadir "Berserk"</a><br/>
+    <a th:href="@{/add(titulo = 'El nombre del viento', autor = 'Patrick Rothfuss')}"> Añadir "El nombre del
+        viento"</a><br />
+    <a th:href="@{/add(titulo = 'El capitán Alatriste', autor = 'Pérez Reverte')}"> Añadir "El capitán
+        Alatriste"</a><br />
+    <a th:href="@{/add(titulo = 'Berserk', autor = 'Kentaro Miura')}"> Añadir "Berserk"</a><br />
+
+    <!-- Formulario simple para añadir nuevos libros -->
+    <form th:action="@{/add}" method="get" style="margin-top:20px;">
+        <input type="text" name="titulo" placeholder="Título" required />
+        <input type="text" name="autor" placeholder="Autor" />
+        <button type="submit">Añadir libro</button>
+    </form>
+
+    <!-- Barra de filtrado y búsqueda -->
+    <form method="get" th:action="@{/}" style="margin-top:20px;">
+        <label for="filtro">Estado:</label>
+        <select name="filtro" id="filtro">
+            <option value="all" th:selected="${filtro == 'all'}">Todos</option>
+            <option value="disponibles" th:selected="${filtro == 'disponibles'}">Disponibles</option>
+            <option value="prestados" th:selected="${filtro == 'prestados'}">Prestados</option>
+        </select>
+
+        <label for="q">Buscar:</label>
+        <input type="text" id="q" name="q" placeholder="Título o autor" th:value="${q}">
+
+        <button type="submit">Filtrar</button>
+    </form>
 
 
     <!-- Tabla para mostrar todos los libros -->
@@ -27,26 +57,27 @@
             </tr>
         </thead>
         <tbody>
-             <!-- Recorremos la lista 'libros' enviada por el controlador con un for each -->
-            <tr th:each = "libro : ${libros}">
+            <!-- Recorremos la lista 'libros' enviada por el controlador con un for each -->
+            <tr th:each="libro : ${libros}">
 
                 <!-- Mostrar el valor de los atributos del objeto libro -->
-                <td th:text = "${libro.ID}"></td>
-                <td th:text = "${libro.titulo}"></td>
-                <td th:text = "${libro.autor}"></td>
+                <td th:text="${libro.ID}"></td>
+                <td th:text="${libro.titulo}"></td>
+                <td th:text="${libro.autor}"></td>
                 <!-- Mostrar estado del 'libro' e introducción de th:classappend para implementar CSS -->
-                <td th:text = "${libro.disponible ? 'Disponible' : 'Prestado'}"
-                    th:classappend = "${libro.disponible} ? 'disponible' : 'prestado' "></td>
+                <td th:text="${libro.disponible ? 'Disponible' : 'Prestado'}"
+                    th:classappend="${libro.disponible} ? 'disponible' : 'prestado' "></td>
                 <td>
                     <!-- Enlaces para operar sobre el objeto -->
-                    <a th:href = "@{/toggle/{ID}(ID = ${libro.ID})}">Cambiar estado</a>
-                    <a th:href = "@{/delete/{ID}(ID = ${libro.ID})}">Eliminar</a>
+                    <a th:href="@{/toggle/{ID}(ID = ${libro.ID})}">Cambiar estado</a>
+                    <a th:href="@{/delete/{ID}(ID = ${libro.ID})}">Eliminar</a>
                 </td>
             </tr>
         </tbody>
     </table>
 
-    
-    
+  
+
 </body>
+
 </html>
